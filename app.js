@@ -1,6 +1,9 @@
 const http = require('http');
 const fs = require('fs');
 const url = require('url')
+const EventEmitter = require('events');
+
+const eventEmitter = new EventEmitter();
 
 const server = http.createServer(function(req,res){
     const urlObject = url.parse(req.url,true)
@@ -22,6 +25,13 @@ const server = http.createServer(function(req,res){
 server.listen(9000,()=>{
     console.log("server running")
 })
+
+eventEmitter.on('start', (var1,var2) => {
+    console.log(`${var1} doing ${var2}`);
+});
+
+eventEmitter.emit('start','john','poop');
+
 
 const reqUrl = 'http://localhost:9000/jim.html'
 
