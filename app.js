@@ -1,45 +1,50 @@
-const http = require('http');
-const fs = require('fs');
-const url = require('url')
-const EventEmitter = require('events');
+const http = require('http')
+const fs = require('fs')
 
-const eventEmitter = new EventEmitter();
+const poop = http.createServer((req,res)=>{
 
-const server = http.createServer(function(req,res){
-    const urlObject = url.parse(req.url,true)
-    const fileName= "." + urlObject.pathname
+    //set header content type
+    res.setHeader('Content-type','text/html')
 
-    fs.readFile(fileName, function(err, data){
+    let path = './'
 
+    switch(req.url){
+        case '/':
+            path += 'jim.html';
+            res.statusCode=200;
+            break;
+        case '/john':
+            path += 'john.html';
+            res.statusCode=200;
+            break;
+        case '/about-john':
+            res.statusCode=301;
+            res.setHeader('Location','/john')
+            res.end();
+            break;
+        default:
+            path += '404error.html';
+            res.statusCode=404;
+            break;
+
+    }
+
+
+    //write content to send back to browser (this returns html file)
+    fs.readFile(path, (err,data)=>{
         if(err){
-            res.writeHead(404,{'Content-Type':'text/html'})
-            return res.end("404 Not Found")
+            console.log(err)
+            res.end()
+        } else{
+            //ending response which initiates the send back to browser
+            //if you only have 1 thing to write then use res.end as res.write
+            res.end(data)
         }
-
-        res.writeHead(200,{'Content-Type':'text/html'})
-        res.write(data)
-        res.end();
     })
+
 })
 
-server.listen(9000,()=>{
-    console.log("server running")
+poop.listen(3000,'localhost',()=>{
+    console.log('listening for requests on port 3000')
 })
 
-eventEmitter.on('start', (var1,var2) => {
-    console.log(`${var1} doing ${var2}`);
-});
-
-eventEmitter.emit('start','john','poop');
-
-
-const reqUrl = 'http://localhost:9000/jim.html'
-
-// const urlObject = url.parse(reqUrl,true);
-// console.log(urlObject.host)
-// console.log(urlObject.pathname)
-// console.log(urlObject.search)
-
-// const allSearch = urlObject.query
-// console.log(`I love ${allSearch.country}`)
-// let myURL = new URL('http://Example.com/', 'https://example.org/');
