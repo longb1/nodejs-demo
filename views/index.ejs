@@ -1,32 +1,23 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css"/>
-    <title>Home</title>
-</head>
-<body>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <h1><%= title %></h1>
+    <p>Welcome to <%= title %>, <a href="/new">submit a new message here!</a></p>
 
-    <h1>main page for <%= name%></h1>
-    <nav>
-        <ul>
-            <li><a href="/jim">visit jim</a></li>
-            <li><a href="/john">visit John</a></li>
-            <li><a href="/forms">render deze nuts</a></li>
-        </ul>
-    </nav>
-    
-    <h1>see my works</h1>
-    <% if (works.length > 0){%>
-        <% works.forEach(work=>{ %>
-            <a href='/blogs/<%=work._id%>'><h3><i><%=work.title %></i></h3></a>
-            <h4><%=work.snippet%></h4>
-            <p><%=work.body %></p>
-        <% })%>
-    <% } else{%>
-        <p>nothing to show atm...</p>
-    <%}%>
-</body>
+    <ul>
+      
+      <%messages.forEach(message=>{ %>
+        <li><b><%=message.user%></b></li>
+        <li><i><%=message.text%></i></li>
+        <li>sent at <%=message.added%></li>
+        <li>boop!</li>
+      <%})%>
+      
+      
+    </ul>
+  </body>
 </html>
