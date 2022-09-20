@@ -10,7 +10,12 @@
 
     <ul>
       
-      
+      <%messages.forEach(message=>{ %>
+        <li><b><%=message.user%></b></li>
+        <li><i><%=message.text%></i></li>
+        <li>sent at <%=message.createdAt%></li>
+        <li>boop!</li>
+      <%})%>
       
     </ul>
   </body>

@@ -3,11 +3,11 @@ const Message = require("../models/message.js")
 exports.index = (req,res)=>{
     Message.find()
         .then((result)=>{
-            res.send(result)
+            res.render('index', { title: 'poo',messages:result});
+
         })
         .catch((err)=>{console.log(err)})
 
-    // res.render('index', { title: 'poo'});
 }
 
 exports.message_create = (req,res)=>{
