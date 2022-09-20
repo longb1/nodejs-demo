@@ -4,34 +4,12 @@ var router = express.Router();
 // Require controller modules.
 const msg_controller = require("../controllers/msgController.js");
 
-const messages = [
-  {
-    text: "Hi there!",
-    user: "Amando",
-    added: new Date()
-  },
-  {
-    text: "Hello World!",
-    user: "Charles",
-    added: new Date()
-  }
-];
 /* GET home page. */
-router.get('/', function(req, res, next) {
-  
-  res.render('index', { title: 'poo',messages});
-});
+router.get('/', msg_controller.index);
 
 // form route
-router.get('/new', function(req, res, next) {
-  msg_controller.message_upload
-});
+router.get('/new',msg_controller.message_create);
 
-router.post('/new',function(req,res,next){
-  const name = req.body.fname
-  const text = req.body.message
-  messages.push({text: text, user: name, added: new Date()});
-  res.redirect('/')
-})
+router.post('/new',msg_controller.message_upload)
 
 module.exports = router;

@@ -11,7 +11,7 @@ var app = express();
 
 // Set up mongoose connection
 const mongoose = require("mongoose");
-const mongoDB = "insert_your_database_url_here";
+const mongoDB = "mongodb+srv://msg-app:DbCjppehqm07tKuX@cluster0.hieyt66.mongodb.net/message-app?retryWrites=true&w=majority";
 mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true });
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "MongoDB connection error:"));
